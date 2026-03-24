@@ -38,6 +38,10 @@ SQLITE_PATH     = os.path.abspath(
     _sqlite_env if _sqlite_env else os.path.join(_MAIN_DIR, "tgvideoplayer.db")
 )
 
+_session_dir_env = os.environ.get("SESSION_DIR", "").strip()
+SESSION_DIR = os.path.abspath(_session_dir_env if _session_dir_env else _MAIN_DIR)
+os.makedirs(SESSION_DIR, exist_ok=True)
+
 CHUNK_SIZE = 512 * 1024       # 512 KB
 THUMB_DIR  = "/tmp/tg_thumbs"
 os.makedirs(THUMB_DIR, exist_ok=True)
@@ -490,7 +494,7 @@ def _ref_from_msg(msg: Any) -> MediaRef | None:
 
 async def _run_bot():
     global _tg
-    client = TelegramClient("bot_session", API_ID, API_HASH)
+    client = TelegramClient(os.path.join(SESSION_DIR, "bot_session"), API_ID, API_HASH)
     await client.start(bot_token=BOT_TOKEN)
     _tg = client
     log.info("Telethon бот запущен. URL: %s", PUBLIC)

@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    env_file: .env
+    ports:
+      - "${PORT:-8000}:${PORT:-8000}"
+    environment:
+      SQLITE_PATH: /data/tgvideoplayer.db
+      SESSION_DIR: /data
+    volumes:
+      - ./data:/data
