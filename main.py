@@ -440,7 +440,7 @@ def _success_message(kind: str, url: str) -> str:
     }
     title = titles.get(kind, "Готово")
     url_escaped = url.replace("&", "&amp;")
-    return f'<b>{title}</b>\n\n<a href="{url_escaped}">Открыть</a>'
+    return f'<b>{title}</b>\n\n<a href="{url_escaped}">Открыть</a>\n<code>{url_escaped}</code>'
 
 
 def _pick_thumb(sizes: list) -> Any:
