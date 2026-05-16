@@ -4,8 +4,14 @@ services:
     restart: unless-stopped
     env_file:
       - .env
+    environment:
+      - PYTHONUNBUFFERED=1
     ports:
       - "${PORT:-8070}:${PORT:-8070}"
     volumes:
       - .:/app
+      - db_data:/data 
     working_dir: /app
+
+volumes:
+  db_data: 
